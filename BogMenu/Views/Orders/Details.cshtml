@@ -79,6 +79,7 @@
 
         <dd>
             @Model.OrderProducts.Sum(p => p.ProductPrice)
+            @NumberHelper.NumberToString(Model.OrderProducts.Sum(p => p.ProductPrice))
         </dd>
 
     </dl>

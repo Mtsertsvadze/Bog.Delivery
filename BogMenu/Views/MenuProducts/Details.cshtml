@@ -1,4 +1,5 @@
-﻿@model BogMenu.Models.MenuProduct
+﻿@using BogMenu.Models
+@model BogMenu.Models.MenuProduct
 
 @{
     ViewBag.Title = "Details";
@@ -40,7 +41,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductPrice)
+            @Model.ProductPrice
+            @NumberHelper.NumberToString(Model.ProductPrice)
         </dd>
 
     </dl>
