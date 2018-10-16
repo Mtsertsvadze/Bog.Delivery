@@ -1,0 +1,124 @@
+﻿@using BogMenu.Models
+@model BogMenu.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+@if (Model.OrderStatus == BogMenu.Models.OrderStatusEnum.PENDING)
+{
+    using (Html.BeginForm("Pay", "Orders", new { id = Model.OrderId }, FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        <button class="btn btn-danger" type="submit" style="max-height: 100px; float: right; margin-top: 50px">გადახდა</button>
+    }
+}
+@using (Html.BeginForm("FindSimilar", "Companies", new { id = Model.OrderId }, FormMethod.Get))
+{
+    <button class="btn btn-warning" type="submit" style="max-height: 100px; float: right; margin-top: 50px">მსგავსი</button>
+}
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </dt>
+
+        <dd>
+            @{
+                var orderStatus = Model.OrderStatus.GetDisplayName();
+            }
+            @Html.DisplayFor(model => orderStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.orderDate)
+        </dd>
+        @if (Model.OrderStatus != OrderStatusEnum.PENDING)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Stars)
+            </dt>
+
+            <dd>
+                @{
+                    var stars = Model.Stars.GetDisplayName();
+                }
+                @Html.DisplayFor(model => stars)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CommentCategory)
+            </dt>
+
+            <dd>
+                @{
+                    var comCategory = Model.CommentCategory.GetDisplayName();
+                }
+                @Html.DisplayFor(model => comCategory)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+        }
+
+        <dt>
+            Total Price
+        </dt>
+
+        <dd>
+            @Model.OrderProducts.Sum(p => p.ProductPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Cancel Order", "CancelOrder", new { id = Model.OrderId }) |
+    @Html.ActionLink("Rate", "Rate", new { id = Model.OrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<h2>Products</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderProducts.FirstOrDefault().Menu.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderProducts.FirstOrDefault().Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderProducts.FirstOrDefault().ProductPrice)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderProducts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Menu.Company.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,51 @@
+﻿@model BogMenu.Models.MenuProduct
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<img src="@Url.Content(Model.Menu.Company.Logo)" alt="Alternate Text" style="max-height: 100px; float: right;" />
+<h2>Details</h2>
+
+<div>
+    <h4>MenuProduct</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Menu.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Menu.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cookingTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cookingTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MenuProductId }) |
+    @Html.ActionLink("Back to List", "Details", "Menus", new { Id = Model.MenuId }, null)
+</p>

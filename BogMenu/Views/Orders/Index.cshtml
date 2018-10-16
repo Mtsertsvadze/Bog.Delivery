@@ -1,0 +1,47 @@
+﻿@using BogMenu.Models
+@model IEnumerable<BogMenu.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stars)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{
+                var orderStatus = item.OrderStatus.GetDisplayName();
+            }
+            @Html.DisplayFor(modelItem => orderStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderDate)
+        </td>
+        <td>
+            @{
+                var შეფასება = item.Stars.GetDisplayName();
+            }
+            @Html.DisplayFor(modelItem => შეფასება)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.OrderId })
+        </td>
+    </tr>
+}
+
+</table>

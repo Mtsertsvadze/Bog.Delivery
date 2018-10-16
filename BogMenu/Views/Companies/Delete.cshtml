@@ -1,0 +1,64 @@
+﻿@using BogMenu.Models
+@model BogMenu.Models.Company
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<img src="@Url.Content(Model.Logo)" alt="Alternate Text" style="max-height: 100px; float: right;" />
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyType)
+        </dt>
+
+        <dd>
+            @{
+                var companyType = Model.CompanyType.GetDisplayName();
+            }
+            @Html.DisplayFor(model => companyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @{
+                var cost = Model.Cost.GetDisplayName();
+            }
+            @Html.DisplayFor(model => cost)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@using BogMenu.Models
+@model IEnumerable<BogMenu.Models.Company>
+
+@{
+    ViewBag.Title = "Companies";
+}
+
+<h2>Companies</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content(item.Logo)" alt="Alternate Text" style="max-height: 20px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+          
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CompanyId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
+            </td>
+        </tr>
+    }
+
+</table>

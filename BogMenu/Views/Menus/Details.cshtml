@@ -1,0 +1,82 @@
+﻿@using BogMenu.Models
+@model BogMenu.Models.Menu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<img src="@Url.Content(Model.Company.Logo)" alt="Alternate Text" style="max-height: 100px; float: right;" />
+<h2>Details</h2>
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuType)
+        </dt>
+
+        <dd>
+            @{ 
+                var menuType = Model.MenuType.GetDisplayName();
+            }
+            @Html.DisplayFor(model => menuType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MenuId }) |
+    @Html.ActionLink("Back to List", "Details", "Companies", new { Id = Model.CompanyId }, null)
+</p>
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "MenuProducts", new { id = Model.MenuId}, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MenuProducts.FirstOrDefault().Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MenuProducts.FirstOrDefault().cookingTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.MenuProducts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cookingTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "MenuProducts", new { id = item.MenuProductId }, null) |
+                @Html.ActionLink("Details", "Details", "MenuProducts", new { id = item.MenuProductId }, null) |
+                @Html.ActionLink("Delete", "Delete", "MenuProducts", new { id = item.MenuProductId }, null) |
+                @Html.ActionLink("Order", "Order", "Orders", new { id = item.MenuProductId }, null)
+            </td>
+        </tr>
+    }
+
+</table>
